@@ -34,7 +34,7 @@ int validarData(Data data)
     {
         return 0;
     }
-    
+
     return 1;
 }
 
@@ -54,23 +54,39 @@ int menu()
     return opcao;
 }
 
+int DmM(Data data, Data data2){
+    int diferenca;
+    diferenca = data.dia - data2.dia;
+    if(data.dia < data2.dia){
+        diferenca = -diferenca;
+    }
+    return diferenca;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
     Data data;
     Data data2;
     int opcao;
+    int Diferenca;
 
     do
     {
         printf("informe a primeira data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
+        if(!validarData(data)){
+            printf("Data inválida!\n");
+        }
     } while (!validarData(data));
 
     do
     {
         printf("informe a segunda data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
+        if(!validarData(data2)){
+            printf("Data inválida!\n");
+        }
     } while (!validarData(data2));
 
     printf("A primeira data é em %d/%d/%d\n", data.dia, data.mes, data.ano);
@@ -81,7 +97,9 @@ int main()
     {
 
     case 1:
-        printf("Calculando...");
+        printf("Calculando...\n");
+        Diferenca = DmM(data, data2);
+        printf("A diferença entre as duas datas eh %d", Diferenca);
         break;
 
     case 2:
