@@ -130,7 +130,7 @@ int main()
         {
             printf("Calculando...\n");
             DiferDmM = DmM(data, data2);
-            printf("A diferença entre as duas datas eh %d\n", DiferDmM);
+            printf("A quantidade de dias entre as duas datas eh de %d dias.\n", DiferDmM);
         }
         break;
 
@@ -143,7 +143,7 @@ int main()
         {
             sma = dma(data, data2);
             printf("Calculando...\n");
-            printf("a quantidade de dias entre o mes %d e o mes %d é igual a: %d", data.mes, data2.mes, sma);
+            printf("A quantidade de dias entre as duas datas é de %d dias.", sma);
         }
         break;
 
