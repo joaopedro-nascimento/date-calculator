@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <locale.h>
-
+int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 typedef struct
 {
     int dia;
@@ -24,9 +24,8 @@ int validarData(Data data)
         return 0;
     }
 
-    int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-    if(ehbissexto(data)){
+    if (ehbissexto(data))
+    {
         diasDoMes[2] = 29;
     }
 
@@ -34,8 +33,29 @@ int validarData(Data data)
     {
         return 0;
     }
-    
+
     return 1;
+}
+int dma(Data data, Data data2)
+{
+    int soma = 0;
+    if (data.mes > data2.mes)
+    {
+        for (int i = data2.mes; i <= data.mes; i++)
+        {
+            soma += diasDoMes[i];
+        }
+    }
+    else
+    {
+        for (int i = data.mes; i <= data2.mes; i++)
+        {
+            soma += diasDoMes[i];
+        }
+    }
+    int dia1 = diasDoMes[data.mes] - data.dia;
+    int somaDia = dia1 + data2.dia;
+    return soma - somaDia;
 }
 
 int menu()
@@ -56,6 +76,7 @@ int menu()
 
 int main()
 {
+    int sma;
     setlocale(LC_ALL, "Portuguese");
     Data data;
     Data data2;
@@ -85,7 +106,9 @@ int main()
         break;
 
     case 2:
-        printf("Calculando...");
+        sma = dma(data, data2);
+        printf("Calculando...\n");
+        printf("a quantidade de dias entre o mes %d e o mes %d é igual a: %d", data.mes, data2.mes, sma);
         break;
 
     case 3:
@@ -103,6 +126,5 @@ int main()
     default:
         printf("Invalido!");
         break;
-        
     }
 }
