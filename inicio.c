@@ -69,7 +69,7 @@ int main()
     Data data;
     Data data2;
     int opcao;
-    int Diferenca;
+    int DiferDmM;
 
     do
     {
@@ -97,9 +97,15 @@ int main()
     {
 
     case 1:
+        if (data.mes != data2.mes) 
+        {
+            printf("Erro: As datas precisam ser do mesmo mês para esta opção!\n");
+        } else
+        {
         printf("Calculando...\n");
-        Diferenca = DmM(data, data2);
-        printf("A diferença entre as duas datas eh %d", Diferenca);
+        DiferDmM = DmM(data, data2);
+        printf("A diferença entre as duas datas eh %d\n", DiferDmM);
+        }
         break;
 
     case 2:
