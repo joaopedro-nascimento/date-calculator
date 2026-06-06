@@ -36,27 +36,6 @@ int validarData(Data data)
 
     return 1;
 }
-int dma(Data data, Data data2)
-{
-    int soma = 0;
-    if (data.mes > data2.mes)
-    {
-        for (int i = data2.mes; i <= data.mes; i++)
-        {
-            soma += diasDoMes[i];
-        }
-    }
-    else
-    {
-        for (int i = data.mes; i <= data2.mes; i++)
-        {
-            soma += diasDoMes[i];
-        }
-    }
-    int dia1 = diasDoMes[data.mes] - data.dia;
-    int somaDia = dia1 + data2.dia;
-    return soma - somaDia;
-}
 
 int menu()
 {
@@ -85,6 +64,49 @@ int DmM(Data data, Data data2)
     return diferenca;
 }
 
+int dma(Data data, Data data2)
+{
+    int soma = 0;
+    if (data.mes > data2.mes)
+    {
+        for (int i = data2.mes; i <= data.mes; i++)
+        {
+            soma += diasDoMes[i];
+        }
+    }
+    else
+    {
+        for (int i = data.mes; i <= data2.mes; i++)
+        {
+            soma += diasDoMes[i];
+        }
+    }
+    int dia1 = diasDoMes[data.mes] - data.dia;
+    int somaDia = dia1 + data2.dia;
+    return soma - somaDia;
+}
+
+int DmAC(Data data, Data data2){
+    int diferenca;
+    int DiasDoAno = ehbissexto(data) ? 366 : 365;
+
+    int soma = 0;
+    for (int i = data.mes; i <= 12; i++)
+    {
+        soma += diasDoMes[i];
+    }
+    int PrimAno = soma;
+
+    int soma2 = 0;
+    for (int i = 1; i <= data2.mes; i++)
+    {
+        soma2 += diasDoMes[i];
+    }
+    int SegunAno = soma2 + data.dia;
+
+    printf("%d, %d",PrimAno, soma2);
+}
+
 int main()
 {
     int sma;
@@ -93,6 +115,7 @@ int main()
     Data data2;
     int opcao;
     int DiferDmM;
+    int DiferDmAC;
 
     do
     {
@@ -148,6 +171,7 @@ int main()
         break;
 
     case 3:
+        DmAC(data, data2);
         printf("Calculando...");
         break;
 
@@ -163,4 +187,5 @@ int main()
         printf("Invalido!");
         break;
     }
+    return 0;
 }
