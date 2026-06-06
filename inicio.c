@@ -74,10 +74,12 @@ int menu()
     return opcao;
 }
 
-int DmM(Data data, Data data2){
+int DmM(Data data, Data data2)
+{
     int diferenca;
     diferenca = data.dia - data2.dia;
-    if(data.dia < data2.dia){
+    if (data.dia < data2.dia)
+    {
         diferenca = -diferenca;
     }
     return diferenca;
@@ -96,7 +98,8 @@ int main()
     {
         printf("informe a primeira data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
-        if(!validarData(data)){
+        if (!validarData(data))
+        {
             printf("Data inválida!\n");
         }
     } while (!validarData(data));
@@ -105,7 +108,8 @@ int main()
     {
         printf("informe a segunda data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
-        if(!validarData(data2)){
+        if (!validarData(data2))
+        {
             printf("Data inválida!\n");
         }
     } while (!validarData(data2));
@@ -118,21 +122,29 @@ int main()
     {
 
     case 1:
-        if (data.mes != data2.mes) 
+        if (data.mes != data2.mes)
         {
             printf("Erro: As datas precisam ser do mesmo mês para esta opção!\n");
-        } else
+        }
+        else
         {
-        printf("Calculando...\n");
-        DiferDmM = DmM(data, data2);
-        printf("A diferença entre as duas datas eh %d\n", DiferDmM);
+            printf("Calculando...\n");
+            DiferDmM = DmM(data, data2);
+            printf("A diferença entre as duas datas eh %d\n", DiferDmM);
         }
         break;
 
     case 2:
-        sma = dma(data, data2);
-        printf("Calculando...\n");
-        printf("a quantidade de dias entre o mes %d e o mes %d é igual a: %d", data.mes, data2.mes, sma);
+        if (data.ano != data2.ano)
+        {
+            printf("Sinto muito! Mas esta opcão só é válida para datas dentro do mesmo ano... ");
+        }
+        else
+        {
+            sma = dma(data, data2);
+            printf("Calculando...\n");
+            printf("a quantidade de dias entre o mes %d e o mes %d é igual a: %d", data.mes, data2.mes, sma);
+        }
         break;
 
     case 3:
