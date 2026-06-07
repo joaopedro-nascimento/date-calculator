@@ -1,6 +1,8 @@
 #include <stdio.h>
-#include <locale.h>
+#include <locale.h> 
+
 int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
 typedef struct
 {
     int dia;
@@ -67,6 +69,7 @@ int DmM(Data data, Data data2)
 int dma(Data data, Data data2)
 {
     int soma = 0;
+
     if (data.mes > data2.mes)
     {
         for (int i = data2.mes; i <= data.mes; i++)
@@ -74,6 +77,7 @@ int dma(Data data, Data data2)
             soma += diasDoMes[i];
         }
     }
+
     else
     {
         for (int i = data.mes; i <= data2.mes; i++)
@@ -81,40 +85,45 @@ int dma(Data data, Data data2)
             soma += diasDoMes[i];
         }
     }
+
     int dia1 = diasDoMes[data.mes] - data.dia;
     int somaDia = dia1 + data2.dia;
     return soma - somaDia;
 }
 
 int DmAC(Data data, Data data2){
-    int diferenca;
-    int DiasDoAno = ehbissexto(data) ? 366 : 365;
-
-    int soma = 0;
-    for (int i = data.mes; i <= 12; i++)
-    {
-        soma += diasDoMes[i];
-    }
-    int PrimAno = soma;
-
+    int soma1 = 0;
     int soma2 = 0;
-    for (int i = 1; i <= data2.mes; i++)
-    {
+    int total;
+
+    diasDoMes[2] = ehbissexto(data) ? 29 : 28;
+    soma1 = (diasDoMes[data.mes] - data.dia);
+    for(int i = data.mes + 1; i <= 12; i++){
+        soma1 += diasDoMes[i];
+    }
+
+    diasDoMes[2] = ehbissexto(data2) ? 29 : 28;
+    for(int i = 1; i < data2.mes; i++){
         soma2 += diasDoMes[i];
     }
-    int SegunAno = soma2 + data.dia;
+    soma2 += data2.dia;
+    total = soma1 + soma2;
 
-    printf("%d, %d",PrimAno, soma2);
+    if(data.ano > data2.ano){
+        total = -total;
+    }
+
+    return total;
 }
 
 int main()
 {
-    int sma;
     setlocale(LC_ALL, "Portuguese");
     Data data;
     Data data2;
     int opcao;
     int DiferDmM;
+    int DiferDmA;
     int DiferDmAC;
 
     do
@@ -160,19 +169,27 @@ int main()
     case 2:
         if (data.ano != data2.ano)
         {
-            printf("Sinto muito! Mas esta opcão só é válida para datas dentro do mesmo ano... ");
+            printf("Sinto muito! Mas esta opcão só é válida para datas dentro do mesmo ano...\n");
         }
         else
         {
-            sma = dma(data, data2);
+            DiferDmA = dma(data, data2);
             printf("Calculando...\n");
-            printf("A quantidade de dias entre as duas datas é de %d dias.", sma);
+            printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmA);
         }
         break;
 
     case 3:
-        DmAC(data, data2);
-        printf("Calculando...");
+        if (data.ano - 1 != data2.ano || data2.ano - 1 != data.ano)
+        {
+            printf("Erro: As datas precisam ser de anos consecutivos para esta opção!\n");
+        }
+        else
+        {
+        printf("Calculando...\n");
+        DiferDmAC = DmAC(data, data2);
+        printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmAC);
+        }
         break;
 
     case 4:
