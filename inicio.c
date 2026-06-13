@@ -44,10 +44,10 @@ int menu()
     int opcao;
 
     printf("========== ESCOLHA DO CALCULO ==========\n");
-    printf("1) Calcular a quantidade de dias entre duas datas no mesmo mÃªs.\n");
+    printf("1) Calcular a quantidade de dias entre duas datas no mesmo mês.\n");
     printf("2) Calcular a quantidade de dias entre duas datas no mesmo ano.\n");
     printf("3) Calcular a quantidade de dias entre duas datas em anos consecutivos.\n");
-    printf("4) Calcular a quantidade de dias entre duas datas em anos quaisquer (inclusive em sÃ©culos diferentes).\n");
+    printf("4)e Calcular a quantidad de dias entre duas datas em anos quaisquer (inclusive em séculos diferentes).\n");
     printf("5) Calcular a data final que marca a quantidade de dias passado no periodo.\n");
     printf("Digite um dos valores acima para escolher (1 a 5), 0 para cancelar.\n");
     scanf("%d", &opcao);
@@ -116,6 +116,41 @@ int DmAC(Data data, Data data2){
     return total;
 }
 
+int DmAQ(Data data, Data data2){
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int total;
+    if(data.ano == data2.ano){
+        printf("Para esta função os anos não podem ser iguais...");
+    } else{ 
+    diasDoMes[2] = ehbissexto(data) ? 29 : 28;
+    a = (diasDoMes[data.mes] - data.dia);
+    for(int i = data.mes + 1; i <= 12; i++){
+        a += diasDoMes[i];
+    }
+
+    diasDoMes[2] = ehbissexto(data2) ? 29 : 28;
+    if(data.ano < data2.ano){ 
+    for(int i = data.ano + 1; i < data2.ano; i++){
+        
+    }
+
+} else{
+    for(int i = data2.ano + 1; i < data.ano; i++){
+
+    }
+    }
+
+            if(data.ano > data2.ano){
+                    total = -total;
+                }
+    }
+    b += data2.dia;
+    total = a + b;
+    return total;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -132,7 +167,7 @@ int main()
         scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
         if (!validarData(data))
         {
-            printf("Data invÃ¡lida!\n");
+            printf("Data inválida!\n");
         }
     } while (!validarData(data));
 
@@ -142,12 +177,12 @@ int main()
         scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
         if (!validarData(data2))
         {
-            printf("Data invÃ¡lida!\n");
+            printf("Data inválida!\n");
         }
     } while (!validarData(data2));
 
-    printf("A primeira data Ã© em %d/%d/%d\n", data.dia, data.mes, data.ano);
-    printf("A segunda data Ã© em %d/%d/%d\n", data2.dia, data2.mes, data2.ano);
+    printf("A primeira data é em %d/%d/%d\n", data.dia, data.mes, data.ano);
+    printf("A segunda data é em %d/%d/%d\n", data2.dia, data2.mes, data2.ano);
 
     opcao = menu();
     switch (opcao)
@@ -156,7 +191,7 @@ int main()
     case 1:
         if (data.mes != data2.mes)
         {
-            printf("Erro: As datas precisam ser do mesmo mÃªs para esta opÃ§Ã£o!\n");
+            printf("Erro: As datas precisam ser do mesmo mês para esta opção!\n");
         }
         else
         {
@@ -169,26 +204,23 @@ int main()
     case 2:
         if (data.ano != data2.ano)
         {
-            printf("Sinto muito! Mas esta opcÃ£o sÃ³ Ã© vÃ¡lida para datas dentro do mesmo ano...\n");
+            printf("Sinto muito! Mas esta opcão só é válida para datas dentro do mesmo ano...\n");
         }
         else
         {
             DiferDmA = dma(data, data2);
             printf("Calculando...\n");
-            printf("A quantidade de dias entre as duas datas Ã© de %d dias.\n", DiferDmA);
+            printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmA);
         }
         break;
 
     case 3:
-        if (data.ano - 1 != data2.ano || data2.ano - 1 != data.ano)
-        {
-            printf("Erro: As datas precisam ser de anos consecutivos para esta opÃ§Ã£o!\n");
-        }
-        else
-        {
         printf("Calculando...\n");
+        if (data2.ano - data.ano != 1){
+            printf("Erro: As data devem ser de anos consecutivos para essa opção.");
+        } else{
         DiferDmAC = DmAC(data, data2);
-        printf("A quantidade de dias entre as duas datas Ã© de %d dias.\n", DiferDmAC);
+        printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmAC);
         }
         break;
 
