@@ -47,7 +47,7 @@ int menu()
     printf("1) Calcular a quantidade de dias entre duas datas no mesmo mês.\n");
     printf("2) Calcular a quantidade de dias entre duas datas no mesmo ano.\n");
     printf("3) Calcular a quantidade de dias entre duas datas em anos consecutivos.\n");
-    printf("4)e Calcular a quantidad de dias entre duas datas em anos quaisquer (inclusive em séculos diferentes).\n");
+    printf("4) Calcular a quantidade de dias entre duas datas em anos quaisquer (inclusive em séculos diferentes).\n");
     printf("5) Calcular a data final que marca a quantidade de dias passado no periodo.\n");
     printf("Digite um dos valores acima para escolher (1 a 5), 0 para cancelar.\n");
     scanf("%d", &opcao);
@@ -116,39 +116,30 @@ int DmAC(Data data, Data data2){
     return total;
 }
 
-int DmAQ(Data data, Data data2){
-    int a = 0;
-    int b = 0;
-    int c = 0;
-    int total;
-    if(data.ano == data2.ano){
-        printf("Para esta função os anos não podem ser iguais...");
-    } else{ 
+long converterParaDias(Data data){
+    long total = 0;
+    int anosAnteriores = data.ano - 1;
+
+    total = (long)anosAnteriores * 365
+    + (anosAnteriores / 4)
+    - (anosAnteriores / 100)
+    + (anosAnteriores / 400);
+
     diasDoMes[2] = ehbissexto(data) ? 29 : 28;
-    a = (diasDoMes[data.mes] - data.dia);
-    for(int i = data.mes + 1; i <= 12; i++){
-        a += diasDoMes[i];
+    for (int i = 1; i < data.mes; i++){
+        total += diasDoMes[i];
     }
 
-    diasDoMes[2] = ehbissexto(data2) ? 29 : 28;
-    if(data.ano < data2.ano){ 
-    for(int i = data.ano + 1; i < data2.ano; i++){
-        
-    }
+    total += data.dia;
 
-} else{
-    for(int i = data2.ano + 1; i < data.ano; i++){
-
-    }
-    }
-
-            if(data.ano > data2.ano){
-                    total = -total;
-                }
-    }
-    b += data2.dia;
-    total = a + b;
     return total;
+}
+
+int DmAQ(Data data, Data data2){
+    long dias1 = converterParaDias(data);
+    long dias2 = converterParaDias(data2);
+
+    return labs(dias2 - dias1);
 }
 
 int main()
@@ -160,6 +151,7 @@ int main()
     int DiferDmM;
     int DiferDmA;
     int DiferDmAC;
+    long DiferDmAQ;
 
     do
     {
@@ -225,7 +217,9 @@ int main()
         break;
 
     case 4:
-        printf("Calculando...");
+        printf("Calculando...\n");
+        DiferDmAQ = DmAQ(data, data2);
+        printf("A quantidade de dias entre as duas datas eh de %ld dias\n", DiferDmAQ);
         break;
 
     case 5:
