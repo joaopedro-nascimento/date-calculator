@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <locale.h> 
+#include <stdlib.h>
 
 int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
@@ -21,6 +22,7 @@ int ehbissexto(Data data)
 
 int validarData(Data data)
 {
+    diasDoMes[2] = 28;
     if (data.mes <= 0 || data.mes > 12 || data.ano <= 0)
     {
         return 0;
@@ -150,7 +152,7 @@ Data descobrirData(long total){
         int diasDesteAno = ehbissexto(dataResultado) ? 366 : 365;
         if(total > diasDesteAno){
             total -= diasDesteAno;
-            diasDesteAno++;
+            dataResultado.ano++;
         } else{
             break;
         }
@@ -219,7 +221,7 @@ int main()
             DiferDmM = DmM(data, data2);
             printf("A quantidade de dias entre as duas datas eh de %d dias.\n", DiferDmM);
         }
-        break;
+    break;
 
     case 2:
         if (data.ano != data2.ano)
@@ -232,7 +234,7 @@ int main()
             printf("Calculando...\n");
             printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmA);
         }
-        break;
+    break;
 
     case 3:
         printf("Calculando...\n");
@@ -242,13 +244,13 @@ int main()
         DiferDmAC = DmAC(data, data2);
         printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmAC);
         }
-        break;
+    break;
 
     case 4:
         printf("Calculando...\n");
         DiferDmAQ = DmAQ(data, data2);
         printf("A quantidade de dias entre as duas datas eh de %ld dias\n", DiferDmAQ);
-        break;
+    break;
 
     case 5:
         do{
@@ -266,11 +268,11 @@ int main()
         dataFinal = descobrirData(diasFinal);
 
         printf("A data final apos %d dias sera: %02d/%02d/%04d\n", diasParaSomar, dataFinal.dia, dataFinal.mes, dataFinal.ano);
-        break;
+    break;
 
     default:
         printf("Invalido!");
-        break;
+    break;
     }
     return 0;
 }
