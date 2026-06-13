@@ -142,16 +142,44 @@ int DmAQ(Data data, Data data2){
     return labs(dias2 - dias1);
 }
 
+Data descobrirData(long total){
+    Data dataResultado;
+    dataResultado.ano = 1;
+
+    while(1){
+        int diasDesteAno = ehbissexto(dataResultado) ? 366 : 365;
+        if(total > diasDesteAno){
+            total -= diasDesteAno;
+            diasDesteAno++;
+        } else{
+            break;
+        }
+    }
+    diasDoMes[2] = ehbissexto(dataResultado) ? 29 : 28;
+    dataResultado.mes = 1;
+
+    while(total > diasDoMes[dataResultado.mes]){
+        total -= diasDoMes[dataResultado.mes];
+        dataResultado.mes++;
+    }
+
+    dataResultado.dia = (int)total;
+
+    return dataResultado;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
     Data data;
     Data data2;
+    Data dataFinal;
     int opcao;
     int DiferDmM;
     int DiferDmA;
     int DiferDmAC;
     long DiferDmAQ;
+    int diasParaSomar;
 
     do
     {
@@ -223,7 +251,21 @@ int main()
         break;
 
     case 5:
-        printf("Calculando...");
+        do{
+            printf("Digite a quantidade de dias que se passaram no periodo: ");
+            scanf("%d", &diasParaSomar);
+            if(diasParaSomar < 0){
+                printf("Por favor insira uma quantidade positiva de dias.");
+            }
+        } while(diasParaSomar < 0);
+
+        printf("Calculando...\n");
+
+        long diasData1 = converterParaDias(data);
+        long diasFinal = diasData1 + diasParaSomar;
+        dataFinal = descobrirData(diasFinal);
+
+        printf("A data final apos %d dias sera: %02d/%02d/%04d\n", diasParaSomar, dataFinal.dia, dataFinal.mes, dataFinal.ano);
         break;
 
     default:
