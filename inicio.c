@@ -11,6 +11,9 @@ typedef struct
     int ano;
 } Data;
 
+Data data;
+Data data2;
+
 int ehbissexto(Data data)
 {
     if ((data.ano % 4 == 0 && data.ano % 100 != 0) || (data.ano % 400 == 0))
@@ -180,11 +183,32 @@ Data descobrirData(long total)
     return dataResultado;
 }
 
+void pegarData()
+{
+    do
+    {
+        printf("informe a primeira data em formato dd/mm/aaaa\n");
+        scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
+        if (!validarData(data))
+        {
+            printf("Data inválida!\n");
+        }
+    } while (!validarData(data));
+
+    do
+    {
+        printf("informe a segunda data em formato dd/mm/aaaa\n");
+        scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
+        if (!validarData(data2))
+        {
+            printf("Data inválida!\n");
+        }
+    } while (!validarData(data2));
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    Data data;
-    Data data2;
     Data dataFinal;
     int opcao;
     int DiferDmM;
@@ -192,38 +216,14 @@ int main()
     int DiferDmAC;
     long DiferDmAQ;
     int diasParaSomar;
-
     int continuar;
     do
     {
-        do
-        {
-            printf("informe a primeira data em formato dd/mm/aaaa\n");
-            scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
-            if (!validarData(data))
-            {
-                printf("Data inválida!\n");
-            }
-        } while (!validarData(data));
-
-        do
-        {
-            printf("informe a segunda data em formato dd/mm/aaaa\n");
-            scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
-            if (!validarData(data2))
-            {
-                printf("Data inválida!\n");
-            }
-        } while (!validarData(data2));
-
-        printf("A primeira data é em %d/%d/%d\n", data.dia, data.mes, data.ano);
-        printf("A segunda data é em %d/%d/%d\n", data2.dia, data2.mes, data2.ano);
-
         opcao = menu();
         switch (opcao)
         {
-
         case 1:
+            pegarData();
             if (data.mes != data2.mes)
             {
                 printf("Erro: As datas precisam ser do mesmo mês para esta opção!\n");
@@ -237,32 +237,35 @@ int main()
             break;
 
         case 2:
+            pegarData();
             if (data.ano != data2.ano)
             {
                 printf("Sinto muito! Mas esta opcão só é válida para datas dentro do mesmo ano...\n");
             }
             else
             {
-                DiferDmA = dma(data, data2);
                 printf("Calculando...\n");
+                DiferDmA = dma(data, data2);
                 printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmA);
             }
             break;
 
         case 3:
-            printf("Calculando...\n");
+            pegarData();
             if (data2.ano - data.ano != 1)
             {
                 printf("Erro: As data devem ser de anos consecutivos para essa opção.");
             }
             else
             {
+                printf("Calculando...\n");
                 DiferDmAC = DmAC(data, data2);
                 printf("A quantidade de dias entre as duas datas é de %d dias.\n", DiferDmAC);
             }
             break;
 
         case 4:
+            pegarData();
             printf("Calculando...\n");
             DiferDmAQ = DmAQ(data, data2);
             printf("A quantidade de dias entre as duas datas eh de %ld dias\n", DiferDmAQ);
@@ -271,6 +274,15 @@ int main()
         case 5:
             do
             {
+                do
+                {
+                    printf("informe a data inicial em formato dd/mm/aaaa\n");
+                    scanf(" %d/%d/%d", &data.dia, &data.mes, &data.ano);
+                    if (!validarData(data))
+                    {
+                        printf("Data inválida!\n");
+                    }
+                } while (!validarData(data));
                 printf("Digite a quantidade de dias que se passaram no periodo: ");
                 scanf("%d", &diasParaSomar);
                 if (diasParaSomar < 0)
@@ -294,7 +306,7 @@ int main()
         }
         printf("\nDeseja realizar uma nova operacao? (1 - Sim / 0 - Nao): ");
         scanf("%d", &continuar);
-
+        
     } while (continuar == 1);
     return 0;
 }
