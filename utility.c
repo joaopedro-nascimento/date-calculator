@@ -3,19 +3,19 @@
 #include "calculos.h"
 #include "utility.h"
 
-// Vetor auxiliar com a quantidade de dias de cada m√™s.
+// Vetor auxiliar com a quantidade de dias de cada mÍs.
 int diasDoMesL[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-// Declara√ß√£o de Vari√°veis.
+// DeclaraÁ„o de Vari·veis.
 Data data;
 Data data2;
 Data dataFinal;
 int opcao, DiferDmM, DiferDmA, DiferDmAC, DiferDmAQ, diasParaSomar, continuar;
 
-// Fun√ß√£o para validar a data, com dias de meses e anos corretos.
+// FunÁ„o para validar a data, com dias de meses e anos corretos.
 int validarData(Data data)
 {
-    diasDoMesL[2] = 28; // Reseta fevereiro para o padr√£o
+    diasDoMesL[2] = 28; // Reseta fevereiro para o padr„o
     if (data.mes <= 0 || data.mes > 12 || data.ano <= 0)
     {
         return 0;
@@ -27,7 +27,7 @@ int validarData(Data data)
         diasDoMesL[2] = 29;
     }
 
-    // Verifica se o dia est√° no intervalo correto do m√™s correspondente
+    // Verifica se o dia est· no intervalo correto do mÍs correspondente
     if (data.dia <= 0 || data.dia > diasDoMesL[data.mes])
     {
         return 0;
@@ -36,8 +36,8 @@ int validarData(Data data)
     return 1;
 }
 
-/*Exibe o menu principal de op√ß√µes de c√°lculo no terminal.
-L√™ a op√ß√£o digitada pelo usu√°rio e a retorna.*/
+/*Exibe o menu principal de opÁıes de c·lculo no terminal.
+LÍ a opÁ„o digitada pelo usu·rio e a retorna.*/
 int menu()
 {
     int opcao;
@@ -45,10 +45,10 @@ int menu()
     printf("\n   =====   INICIO   =====\n");
     printf("=============================\n\n");
     printf("========== ESCOLHA UMA OPERACAO ==========\n");
-    printf("1) Calcular a quantidade de dias entre duas datas no mesmo m√™s.\n");
+    printf("1) Calcular a quantidade de dias entre duas datas no mesmo mÍs.\n");
     printf("2) Calcular a quantidade de dias entre duas datas no mesmo ano.\n");
     printf("3) Calcular a quantidade de dias entre duas datas em anos consecutivos.\n");
-    printf("4) Calcular a quantidade de dias entre duas datas em anos quaisquer (inclusive em s√©culos diferentes).\n");
+    printf("4) Calcular a quantidade de dias entre duas datas em anos quaisquer (inclusive em sÈculos diferentes).\n");
     printf("5) Calcular a data final que marca a quantidade de dias passado no periodo.\n");
     printf("Digite um dos valores acima para escolher (1 a 5), 0 para cancelar.\n");
     scanf("%d", &opcao);
@@ -56,38 +56,38 @@ int menu()
     return opcao;
 }
 
-/*Solicita ao usu√°rio a entrada de duas datas no formato dd/mm/aaaa.
-A fun√ß√£o repete o pedido individual de cada data at√© que ambas sejam v√°lidas.*/
+/*Solicita ao usu·rio a entrada de duas datas no formato dd/mm/aaaa.
+A funÁ„o repete o pedido individual de cada data atÈ que ambas sejam v·lidas.*/
 void pegarData()
 {
-    // Entrada e valida√ß√£o da primeira data
+    // Entrada e validaÁ„o da primeira data
     do
     {
         printf("Por favor, informe a primeira data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data.dia, &data.mes, &data.ano);
         if (!validarData(data))
         {
-            printf("Data inv√°lida!\n");
+            printf("Data inv·lida!\n");
             printf("Tente novamente com outros valores...");
         }
     } while (!validarData(data));
 
-    // Entrada e valida√ß√£o da segunda data
+    // Entrada e validaÁ„o da segunda data
     do
     {
         printf("Por favor, informe a segunda data em formato dd/mm/aaaa\n");
         scanf("%d/%d/%d", &data2.dia, &data2.mes, &data2.ano);
         if (!validarData(data2))
         {
-            printf("Data inv√°lida!\n");
+            printf("Data inv·lida!\n");
             printf("Tente novamente com outros valores...");
         }
     } while (!validarData(data2));
 }
 
 /*Gerencia o fluxo principal do projeto.
-Controla a exibi√ß√£o do menu, chama as fun√ß√µes de leitura, valida as regras de
-neg√≥cio de cada op√ß√£o e exibe os resultados.*/
+Controla a exibiÁ„o do menu, chama as funÁıes de leitura, valida as regras de
+negÛcio de cada opÁ„o e exibe os resultados.*/
 void chamarProjeto()
 {
     do
@@ -97,7 +97,7 @@ void chamarProjeto()
         {
         case 1:
             pegarData();
-            // Valida se pertencem ao mesmo m√™s antes de calcular
+            // Valida se pertencem ao mesmo mÍs antes de calcular
             if (data.mes != data2.mes)
             {
                 printf("Erro: As datas precisam ser do mesmo mes para esta opcao!\n");
@@ -108,7 +108,7 @@ void chamarProjeto()
                 printf("Calculando...\n");
                 DiferDmM = DmM(data, data2);
                 printf("SHOW!!\n");
-                printf("A quantidade de dias entre as datas eh de %d dias.\n",DiferDmM);
+                printf("==== A quantidade de dias entre as datas eh de %d dias. ==== \n",DiferDmM);
             }
             break;
 
@@ -117,7 +117,7 @@ void chamarProjeto()
             // Valida se pertencem ao mesmo ano antes de calcular
             if (data.ano != data2.ano)
             {
-                printf("Sinto muito! Mas esta opc√£o so eh v√°lida para datas dentro do mesmo ano...\n");
+                printf("Sinto muito! Mas esta opc„o so eh valida para datas dentro do mesmo ano...\n");
                 printf("Tente novamente com outros valores...");
             }
             else
@@ -125,7 +125,7 @@ void chamarProjeto()
                 printf("Calculando...\n");
                 DiferDmA = DmA(data, data2);
                 printf("Eba!\n");
-                printf("A quantidade de dias entre as duas datas √© de %d dias.\n", DiferDmA);
+                printf("==== A quantidade de dias entre as duas datas eh de %d dias. ====\n", DiferDmA);
             }
             break;
 
@@ -134,7 +134,7 @@ void chamarProjeto()
             // Valida se pertencem anos consecutivos antes de calcular
             if (data2.ano - data.ano != 1)
             {
-                printf("Erro: As data devem ser de anos consecutivos para essa op√ß√£o.");
+                printf("Erro: As data devem ser de anos consecutivos para essa opÁ„o.");
                 printf("Tente novamente com outros valores...\n");
             }
             else
@@ -142,7 +142,7 @@ void chamarProjeto()
                 printf("Calculando...\n");
                 DiferDmAC = DmAC(data, data2);
                 printf("Que dahora!!\n");
-                printf("A quantidade de dias entre as duas datas eh de %d dias.\n", DiferDmAC);
+                printf("==== A quantidade de dias entre as duas datas eh de %d dias ====.\n", DiferDmAC);
             }
             break;
 
@@ -151,7 +151,7 @@ void chamarProjeto()
             printf("Calculando...\n");
             DiferDmAQ = DmAQ(data, data2);
             printf("Maravilha!!\n");
-            printf("A quantidade de dias entre as duas datas eh de %d dias\n", DiferDmAQ);
+            printf("==== A quantidade de dias entre as duas datas eh de %d dias ==== \n", DiferDmAQ);
             break;
 
         case 5:
@@ -178,23 +178,22 @@ void chamarProjeto()
 
             printf("Calculando...\n");
 
-            // Converte a data inicial para dias totais, soma o per√≠odo e converte de volta para Data
+            // Converte a data inicial para dias totais, soma o perÌodo e converte de volta para Data
             long diasData1 = converterParaDias(data);
             long diasFinal = diasData1 + diasParaSomar;
             dataFinal = descobrirData(diasFinal);
-            printf("Por essa voce n√£o esperava...\n");
-            printf("A data final apos %d dias sera: %02d/%02d/%04d\n", diasParaSomar, dataFinal.dia, dataFinal.mes, dataFinal.ano);
+            printf("==== Por essa voce n„o esperava... ==== \n");
+            printf("==== A data final apos %d dias sera: %02d/%02d/%04d ====\n", diasParaSomar, dataFinal.dia, dataFinal.mes, dataFinal.ano);
             break;
 
         default:
-            printf("\n--OPERACAO CANCELADA--\n");
+            printf("\n==== --OPERACAO CANCELADA-- ====\n");
             break;
         }
         
-        // Pergunta se o usu√°rio deseja reiniciar o loop principal
-        printf("\nDeseja realizar uma nova operacao? (1 - Sim / 0 - Nao): \n");
+        // Pergunta se o usu·rio deseja reiniciar o loop principal
+        printf("\n==Deseja realizar uma nova operacao? (1 - Sim / 0 - Nao): \n");
         scanf("%d", &continuar);
-
     } while (continuar == 1);
     if(continuar== 0){
        printf("====================");
