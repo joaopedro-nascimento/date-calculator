@@ -41,8 +41,10 @@ Lê a opção digitada pelo usuário e a retorna.*/
 int menu()
 {
     int opcao;
-
-    printf("========== ESCOLHA DO CALCULO ==========\n");
+    printf("=============================");
+    printf("\n   =====   INICIO   =====\n");
+    printf("=============================\n\n");
+    printf("========== ESCOLHA UMA OPERACAO ==========\n");
     printf("1) Calcular a quantidade de dias entre duas datas no mesmo mês.\n");
     printf("2) Calcular a quantidade de dias entre duas datas no mesmo ano.\n");
     printf("3) Calcular a quantidade de dias entre duas datas em anos consecutivos.\n");
@@ -175,13 +177,18 @@ void chamarProjeto()
             break;
 
         default:
-            printf("Invalido!");
+            printf("\n--Operacao cancelada--\n");
             break;
         }
         
         // Pergunta se o usuário deseja reiniciar o loop principal
-        printf("\nDeseja realizar uma nova operacao? (1 - Sim / 0 - Nao): ");
+        printf("\nDeseja realizar uma nova operacao? (1 - Sim / 0 - Nao): \n");
         scanf("%d", &continuar);
 
     } while (continuar == 1);
+    if(continuar== 0){
+       printf("====================");
+       printf("--FIM DO PROGRAMA--");
+       printf("====================");
+    }
 }
