@@ -1,3 +1,7 @@
+//calculos.h
+#ifndef calculos
+#define calculos
+
 typedef struct
 {
     int dia;
@@ -5,11 +9,8 @@ typedef struct
     int ano;
 } Data;
 
-#ifndef calculos
-#define calculos
-
 int DmM(Data data, Data data2);
-int dma(Data data, Data data2);
+int DmA(Data data, Data data2);
 int DmAC(Data data, Data data2);
 long converterParaDias(Data data);
 int DmAQ(Data data, Data data2);

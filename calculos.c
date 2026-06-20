@@ -1,8 +1,11 @@
+//calculos.c
 #include <stdlib.h>
 #include "calculos.h"
 
+//Vetor com os dias de cada mês em ordem de índice.
 int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+//Verificador de ano bissexto.
 int ehbissexto(Data data)
 {
     if ((data.ano % 4 == 0 && data.ano % 100 != 0) || (data.ano % 400 == 0))
@@ -12,10 +15,12 @@ int ehbissexto(Data data)
     return 0;
 }
 
+//Cálculo para a diferença entre duas datas de mesmo mês.
 int DmM(Data data, Data data2)
 {
     int diferenca;
     diferenca = data.dia - data2.dia;
+    //Iguala o módulo para o caso de data menor que a outra.
     if (data.dia < data2.dia)
     {
         diferenca = -diferenca;
@@ -23,7 +28,8 @@ int DmM(Data data, Data data2)
     return diferenca;
 }
 
-int dma(Data data, Data data2)
+//Cáculo para a diferença entre duas datas de mesmo ano.
+int DmA(Data data, Data data2)
 {
     int soma = 0;
 
@@ -48,6 +54,7 @@ int dma(Data data, Data data2)
     return soma - somaDia;
 }
 
+//Cáculo para a diferença de datas em anos consecutivos.
 int DmAC(Data data, Data data2)
 {
     int soma1 = 0;
@@ -77,6 +84,7 @@ int DmAC(Data data, Data data2)
     return total;
 }
 
+//Função para converter as datas informadas em dias, a partir do ano 0.
 long converterParaDias(Data data)
 {
     long total = 0;
@@ -95,6 +103,7 @@ long converterParaDias(Data data)
     return total;
 }
 
+//Cálculo da diferença entre duas datas de anos quaisquer utilizando a função para converter em dias.
 int DmAQ(Data data, Data data2)
 {
     long dias1 = converterParaDias(data);
@@ -103,6 +112,7 @@ int DmAQ(Data data, Data data2)
     return labs(dias2 - dias1);
 }
 
+//Cálculo da função que retorna uma data após um período de dias específico.
 Data descobrirData(long total)
 {
     Data dataResultado;
